@@ -74,8 +74,8 @@ startServices() {
     echo -e "Start Nginx"
     sudo service nginx start
 
-    echo -e "Start PHP7.3-fpm"
-    sudo service php7.3-fpm start
+    echo -e "Start PHP7.4-fpm"
+    sudo service php7.4-fpm start
 
     echo -e "Lemp stack installed successfully :)"
     echo -e "Open following link to check installed PHP configuration your_ip/info.php"
