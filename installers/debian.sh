@@ -13,12 +13,6 @@ echo -e "Installing Ngnix server..."
 sudo apt-get -y install nginx
 sudo ufw allow 'Nginx Full'
 
-#install Mysql server
-echo -e "Installing Mysql server..."
-#set password from provided arg
-sudo debconf-set-selections <<<"mysql-server mysql-server/root_password password $MYSQL_ROOT_PASSWORD"
-sudo debconf-set-selections <<<"mysql-server mysql-server/root_password_again password $MYSQL_ROOT_PASSWORD"
-sudo apt-get -y install mysql-server
 
 #add ondrej PPA
 sudo add-apt-repository ppa:ondrej/php -y
