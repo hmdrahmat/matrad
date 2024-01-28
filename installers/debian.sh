@@ -11,6 +11,7 @@ sudo apt-get -y update
 #install Ngnix
 echo -e "Installing Ngnix server..."
 sudo apt-get -y install nginx
+sudo ufw allow 'Nginx Full'
 
 #install Mysql server
 echo -e "Installing Mysql server..."
