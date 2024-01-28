@@ -20,4 +20,4 @@ sudo apt-get update
 
 #install Mysql server
 echo -e "Installing PHP-FPM and Mysql extension for PHP..."
-sudo apt-get -y install php7.4-fpm php-mysql
+sudo apt-get -y install php7.4-fpm php7.4-mysql
