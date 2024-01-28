@@ -1,23 +1,18 @@
 server {
     listen 80;
     listen [::]:80;
-
-    root /var/www/html;
-    index index.php index.html index.htm index.nginx-debian.html;
-
-    server_name locahost;
-
+    server_name localhost;
+    root /var/www/html/bolaweb;
+    index index.php index.html index.htm;
+    
     location / {
-        try_files $uri $uri/ =404;
+        try_files $uri $uri/ /index.php?$query_string;
     }
-
+    
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/phpcurrentversion-fpm.sock;
-        include        fastcgi_params;
-        fastcgi_index  index.php;
-        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-        fastcgi_param  PATH_INFO  $fastcgi_path_info;
+        fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
     }
-
 }
