@@ -64,6 +64,8 @@ moveConfigurationFile() {
     # Remove default config in sites-enabled if exists and symlink it
     sudo rm /etc/nginx/sites-enabled/default
     sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+    sudo nginx -t
+    sudo systemctl reload nginx
 
     #Move php testing file
     echo -e "Moving php testing file..."
@@ -79,6 +81,15 @@ startServices() {
 
     echo -e "Lemp stack installed successfully :)"
     echo -e "Open following link to check installed PHP configuration your_ip/info.php"
+    #!/bin/bash
+
+    # Membuat kunci SSH baru tanpa email
+    ssh-keygen -t rsa -b 4096
+    
+    # Menampilkan kunci SSH
+    echo -e "Berikut adalah kunci SSH Anda:"
+    cat ~/.ssh/id_rsa.pub
+
 }
 
 init
