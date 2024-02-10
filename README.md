@@ -21,7 +21,7 @@ Steps:
 
 1. Clone this repository
 2. `cd LEMP-Installer`
-3. `chmod +x lemp.sh` this command makes bash script executable
+3. `chmod +x lemp.sh` 
 4. `./lemp.sh` or `./lemp.sh $YOUR_MYSQL_ROOT_PASSWORD` (only for debian based distributions)
 
 That's it :)
