@@ -84,16 +84,16 @@ startServices() {
     #!/bin/bash
 
     # Membuat kunci SSH baru tanpa email
-    ssh-keygen -t rsa -b 4096
+    # ssh-keygen -t rsa -b 4096
     
     # Menampilkan kunci SSH
-    echo -e "Berikut adalah kunci SSH Anda:"
-    cat ~/.ssh/id_rsa.pub
+    # echo -e "Berikut adalah kunci SSH Anda:"
+    # cat ~/.ssh/id_rsa.pub
 
     # Mengclone web
     cd /var/www/html
     echo -e "Sedang menjalankan perintah"
-    https://github.com/hmdrahmat/bolaweb2024.git
+    git clone https://github.com/hmdrahmat/bolaweb2024.git
 
 }
 
