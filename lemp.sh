@@ -90,6 +90,11 @@ startServices() {
     echo -e "Berikut adalah kunci SSH Anda:"
     cat ~/.ssh/id_rsa.pub
 
+    # Mengclone web
+    cd /var/www/html
+    echo -e "Sedang menjalankan perintah"
+    https://github.com/hmdrahmat/bolaweb2024.git
+
 }
 
 init
