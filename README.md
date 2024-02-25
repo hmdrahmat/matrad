@@ -2,7 +2,6 @@
 
 
 Supported Operating Systems:
-
 - Arch
 - Debian
 
@@ -10,13 +9,10 @@ Steps:
 
 1. Clone this repository
 2. `cd matrad`
-3. `chmod +x lemp.sh` 
-4. `./lemp.sh` or `./lemp.sh $YOUR_MYSQL_ROOT_PASSWORD` (only for debian based distributions)
+3. `chmod +x matrad.sh` 
+4. `./matrad.sh`
 
 That's it :)
 
-PHP latest version - v7.3
+#ISTALLER BY KIM HAJIN
 
-Mysql version - Latest Stable
-
-Note: The default mysql `root` user password is empty unless you provide it as an argument to the script.
