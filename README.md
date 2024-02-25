@@ -14,5 +14,5 @@ Steps:
 
 That's it :)
 
-#ISTALLER BY KIM HAJIN
+#INSTALLER BY KIM HAJIN
 
