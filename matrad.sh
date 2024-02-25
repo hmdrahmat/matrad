@@ -51,7 +51,7 @@ startInstallFreeradius() {
     freeradius -v
     
     echo -e "Konfigurasi Mysql Freeradius..."
-    sudo apt-get install freeradius-mysql
+    sudo apt-get install freeradius-mysql -y
     
     
 }
@@ -61,7 +61,7 @@ moveConfigurationFile() {
     echo -e "Remove SQL configuration file..."
     sudo rm /etc/freeradius/3.0/mods-available/sql
     echo -e "Moving SQL configuration file..."
-    sudo mv /nsnconfig/sql /etc/freeradius/3.0/mods-available/
+    sudo mv nsnconfig/sql /etc/freeradius/3.0/mods-available/
     
     # symlink it
     sudo ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
@@ -74,8 +74,8 @@ moveConfigurationFile() {
     sudo rm /etc/freeradius/3.0/sites-available/default
     sudo rm /etc/freeradius/3.0/sites-available/inner-tunnel
     echo -e "Moving default configuration file..."
-    sudo mv /nsnconfig/default /etc/freeradius/3.0/sites-available/
-    sudo mv /nsnconfig/inner-tunnel /etc/freeradius/3.0/sites-available/
+    sudo mv nsnconfig/default /etc/freeradius/3.0/sites-available/
+    sudo mv nsnconfig/inner-tunnel /etc/freeradius/3.0/sites-available/
     
     # restart and status
     echo -e "Start Freeradius"
