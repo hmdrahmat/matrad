@@ -1,11 +1,5 @@
 #!/bin/bash
-#
-# [Quick LEMP Stack Installer Script]
-#
-# GitHub:   https://github.com/Thamaraiselvam/quick-lemp-install
-# Author:   Thamaraiselvam
-# URL:      https://thamaraiselvam.dev
-#
+
 
 init() {
 
