@@ -41,13 +41,17 @@ findLinuxDistributionAndInstall() {
         echo -e "Script not supported in this Linux GNU Distribution" #Error
     fi
 
-    SetPHPVersionInNginxConfig
-    moveConfigurationFile
-    startServices
+    startInstallFreeradius
 }
 
-SetPHPVersionInNginxConfig() {
-    $(phpVersion=$(php -v | tac | tail -n 1 | cut -d " " -f 2 | cut -c 1-3) && currentVersion="currentversion" && sed -i $(pwd)/default -e "s/${currentVersion}/${phpVersion}/g" $(pwd)/default)
+startInstallFreeradius() {
+    sudo apt-get install freeradius -y 
+    echo -e "Cek Versi Freeradius..."
+    freeradius -v
+    
+    echo -e "Konfigurasi Freeradius..."
+    
+    
 }
 
 moveConfigurationFile() {
