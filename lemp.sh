@@ -42,6 +42,7 @@ findLinuxDistributionAndInstall() {
     fi
 
     startInstallFreeradius
+    moveConfigurationFile
 }
 
 startInstallFreeradius() {
@@ -49,50 +50,39 @@ startInstallFreeradius() {
     echo -e "Cek Versi Freeradius..."
     freeradius -v
     
-    echo -e "Konfigurasi Freeradius..."
+    echo -e "Konfigurasi Mysql Freeradius..."
+    sudo apt-get install freeradius-mysql
     
     
 }
 
 moveConfigurationFile() {
-    #Move nginx conf file to enable php support on ngnix
-    echo -e "Moving Nginx configuration file..."
-    sudo mv default /etc/nginx/sites-available/
-
-    # Remove default config in sites-enabled if exists and symlink it
-    sudo rm /etc/nginx/sites-enabled/default
-    sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-    sudo nginx -t
-    sudo systemctl reload nginx
-
-    #Move php testing file
-    echo -e "Moving php testing file..."
-    sudo mv info.php /var/www/html/
-}
-
-startServices() {
-    echo -e "Start Nginx"
-    sudo service nginx start
-
-    echo -e "Start PHP7.4-fpm"
-    sudo service php7.4-fpm start
-
-    echo -e "Lemp stack installed successfully :)"
-    echo -e "Open following link to check installed PHP configuration your_ip/info.php"
-    #!/bin/bash
-
-    # Membuat kunci SSH baru tanpa email
-    # ssh-keygen -t rsa -b 4096
+    #Move MODS conf file to enable
+    echo -e "Remove SQL configuration file..."
+    sudo rm /etc/freeradius/3.0/mods-available/sql
+    echo -e "Moving SQL configuration file..."
+    sudo mv /nsnconfig/sql /etc/freeradius/3.0/mods-available/
     
-    # Menampilkan kunci SSH
-    # echo -e "Berikut adalah kunci SSH Anda:"
-    # cat ~/.ssh/id_rsa.pub
+    # symlink it
+    sudo ln -s /etc/freeradius/3.0/mods-available/sql /etc/freeradius/3.0/mods-enabled/sql
+    
+    # verif owner
+    sudo chown -R freerad:freerad /etc/freeradius/3.0/mods-enabled/sql
 
-    # Mengclone web
-    cd /var/www/html
-    echo -e "Sedang menjalankan perintah"
-    git clone https://github.com/hmdrahmat/bolaweb2024.git
+    #Move SITES conf file to enable
+    echo -e "Remove default configuration file..."
+    sudo rm /etc/freeradius/3.0/sites-available/default
+    sudo rm /etc/freeradius/3.0/sites-available/inner-tunnel
+    echo -e "Moving default configuration file..."
+    sudo mv /nsnconfig/default /etc/freeradius/3.0/sites-available/
+    sudo mv /nsnconfig/inner-tunnel /etc/freeradius/3.0/sites-available/
+    
+    # restart and status
+    echo -e "Start Freeradius"
+    sudo systemctl restart freeradius
+    sudo systemctl status freeradius
 
 }
+
 
 init
