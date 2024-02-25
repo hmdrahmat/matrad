@@ -29,4 +29,4 @@ sudo nano /etc/openvpn/client/client.pass
 sudo systemctl enable openvpn-client@client
 sudo systemctl start openvpn-client@client
 
-netstat -tulpn | grep 1812
+sudo openvpn --config /etc/openvpn/client/client.conf 
