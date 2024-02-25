@@ -1,0 +1,48 @@
+
+/snmp community 
+set [ find default=yes ] disabled=yes write-access=no 
+rem [find name!=public] 
+add addresses=172.23.11.0/24 name=NSNRADIUS write-access=yes 
+/snmp 
+set enabled=yes trap-community=NSNRADIUS trap-version=2 
+
+
+/system identity  
+set name="ROUTER RAHMAT" 
+
+/sy log dis num=2 
+
+/system clock 
+set time-zone-autodetect=no time-zone-name=Asia/Jakarta 
+
+
+/ip dns 
+set allow-remote-requests=yes  
+
+/radius incoming 
+set accept=yes port=3799 
+
+
+/radius 
+rem [find] 
+add address=172.23.11.1 comment=RLCLOUD authentication-port=1812 accounting-port=1813 secret="nex71102010" service=login,hotspot timeout=2s500ms 
+
+/ip hotspot profile 
+set [find] use-radius=yes radius-accounting=yes 
+set [find] radius-interim-update=0s 
+
+/ip hotspot user profile 
+rem [find name=NSNRADIUS] 
+set [ find default=yes ] insert-queue-before=first parent-queue=*8 
+add insert-queue-before=first keepalive-timeout=10m mac-cookie-timeout=1w name=NSNRADIUS transparent-proxy=yes open-status-page=always shared-users=unlimited status-autorefresh=10m 
+
+
+/ppp profile 
+rem [find name=MATVPN] 
+add change-tcp-mss=yes comment="default by nsnradius (jangan dirubah)" name=MATVPN only-one=yes use-encryption=yes 
+/interface l2tp-client 
+rem [find name~"MAT"] 
+add connect-to=vpn.matradius.site name=MATVPNRADIUS profile=MATVPN user=mamat password=1234 disabled=no 
+
+/ip route add disabled=no distance=1 dst-address=172.23.11.0/24 gateway=MATVPNRADIUS
+

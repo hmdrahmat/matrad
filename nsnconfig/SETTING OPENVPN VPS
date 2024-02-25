@@ -1,0 +1,32 @@
+sudo apt install openvpn
+sudo nano /etc/openvpn/client/client.conf
+
+client
+dev tun
+proto tcp
+remote 203.175.11.64
+port 1194
+nobind
+persist-key
+persist-tun
+remote-cert-tls server
+ca /etc/openvpn/cert_export_CA.crt
+cert /etc/openvpn/cert_export_client.crt
+key /etc/openvpn/cert_export_client.key
+verb 4
+mute 10
+auth SHA1
+cipher AES-256-CBC
+auth-user-pass /etc/openvpn/secret
+auth-nocache
+askpass /etc/openvpn/client/client.pass
+
+
+
+sudo nano /etc/openvpn/client/client.pass
+12345678
+
+sudo systemctl enable openvpn-client@client
+sudo systemctl start openvpn-client@client
+
+netstat -tulpn | grep 1812
