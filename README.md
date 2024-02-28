@@ -2,7 +2,7 @@
 
 
 Supported Operating Systems:
-- Arch
+- Ubuntu
 - Debian
 
 Steps:
