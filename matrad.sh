@@ -34,9 +34,6 @@ findLinuxDistributionAndInstall() {
 
         $(sudo chmod +x $(pwd)/installers/debian.sh)
         $(echo  "${currentDir}/installers/debian.sh")
-    elif grep -q 'arch' /etc/os-release; then
-        echo -e "Distribution: Arch"
-        $(echo  "${currentDir}/installers/arch.sh")
     else
         echo -e "Script not supported in this Linux GNU Distribution" #Error
     fi
