@@ -40,6 +40,7 @@ findLinuxDistributionAndInstall() {
 
     startInstallFreeradius
     moveConfigurationFile
+    enableSqlCounter
 }
 
 startInstallFreeradius() {
@@ -74,11 +75,27 @@ moveConfigurationFile() {
     sudo mv nsnconfig/default /etc/freeradius/3.0/sites-available/
     sudo mv nsnconfig/inner-tunnel /etc/freeradius/3.0/sites-available/
     
-    # restart and status
+   
+
+}
+
+enableSqlCounter() {
+    echo -e "Remove sqlcounter configuration file..."
+    sudo rm  /etc/freeradius/3.0/mods-available/sqlcounter
+    sudo mv nsnconfig/accessperiod.conf /etc/freeradius/3.0/mods-available/
+    
+    echo -e "add sqlcounter configuration file..."
+    sudo mv nsnconfig/accessperiod.conf /etc/freeradius/3.0/mods-config/sql/counter/mysql/
+    sudo mv nsnconfig/quotalimit.conf /etc/freeradius/3.0/mods-config/sql/counter/mysql/
+
+    echo -e "Remove radius configuration file..."
+    sudo rm  /etc/freeradius/3.0/radiusd.conf
+    sudo mv nsnconfig/radiusd.conf /etc/freeradius/3.0/
+
+     # restart and status
     echo -e "Start Freeradius"
     sudo systemctl restart freeradius
     sudo systemctl status freeradius
-
 }
 
 
