@@ -82,7 +82,7 @@ moveConfigurationFile() {
 enableSqlCounter() {
     echo -e "Remove sqlcounter configuration file..."
     sudo rm  /etc/freeradius/3.0/mods-available/sqlcounter
-    sudo mv nsnconfig/accessperiod.conf /etc/freeradius/3.0/mods-available/
+    sudo mv nsnconfig/sqlcounter /etc/freeradius/3.0/mods-available/
     
     echo -e "add sqlcounter configuration file..."
     sudo mv nsnconfig/accessperiod.conf /etc/freeradius/3.0/mods-config/sql/counter/mysql/
