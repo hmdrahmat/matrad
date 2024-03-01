@@ -12,6 +12,10 @@ Steps:
 3. `chmod +x matrad.sh` 
 4. `./matrad.sh`
 
+VPN
+5. `chmod +x matovpn.sh` 
+6. `./matovpn.sh`
+
 That's it :)
 
 #INSTALLER BY KIM HAJIN
