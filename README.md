@@ -13,7 +13,9 @@ Steps:
 4. `./matrad.sh`
 
 VPN
+
 5. `chmod +x matovpn.sh` 
+
 6. `./matovpn.sh`
 
 
