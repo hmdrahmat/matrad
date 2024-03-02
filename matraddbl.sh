@@ -71,14 +71,14 @@ startInstallFreeradius() {
     sudo ufw allow mysql
 
     # Log in to MySQL as root
-    mysql -u root <<MYSQL_SCRIPT
+    mysql -u root <<EOFMYSQL
     CREATE DATABASE IF NOT EXISTS nsnradius;
     CREATE USER 'nsnradius'@'%' IDENTIFIED BY 'nsnRad##99!';
     ALTER USER 'nsnradius'@'%' IDENTIFIED WITH mysql_native_password
     BY 'nsnRad##99!'; 
     GRANT ALL PRIVILEGES ON nsnradius.* TO 'nsnradius'@'%';
     FLUSH PRIVILEGES;
-MYSQL_SCRIPT
+EOFMYSQL
 
     echo "MySQL database 'nsnradius' created and user 'nsnradius' granted access."
 
