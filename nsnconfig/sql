@@ -158,10 +158,10 @@ sql {
 
 	# Connection info:
 	#
-	server = "139.180.154.108"
+	server = "localhost"
 	port = 3306
 	login = "nsnradius"
-	password = "mamat123"
+	password = "nsnRad123!"
 
 	# Connection info for Mongo
 	# Authentication Without SSL
