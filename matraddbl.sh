@@ -76,28 +76,14 @@ startInstallFreeradius() {
     CREATE USER 'nsnradius'@'%' IDENTIFIED BY 'nsnRad123!';
     GRANT ALL PRIVILEGES ON nsnradius.* TO 'nsnradius'@'%';
     FLUSH PRIVILEGES;
-    MYSQL_SCRIPT
+MYSQL_SCRIPT
 
     echo "MySQL database 'nsnradius' created and user 'nsnradius' granted access."
 
     # Import schema from SQL file
-    mysql -u root -p nsnradius < nsnconfig/nsnradius_schema.sql
+    mysql -u root -p  nsnradius < nsnconfig/nsnradius_schema.sql
     
     echo "Schema imported into MySQL database 'nsnradius'."
-
-
-    
-
-    
-    
-
-    
-    
-
-    
-
-    
-    
     
 }
 
