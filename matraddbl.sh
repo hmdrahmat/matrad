@@ -54,6 +54,48 @@ startInstallFreeradius() {
     echo -e "Install Mysql Server..."
     sudo apt-get install mysql-server -y
 
+    echo -e "Konfig Mysql Server..."
+    sudo mkdir -p /var/run/mysqlid
+    chown mysql:mysql /var/run/mysqlid
+    sudo mysqlid_safe --skip-grant-tables &
+    sleep 5
+
+
+    # Allow remote access to MySQL server
+    sudo sed -i 's/bind-address.*/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
+    
+    # Restart MySQL server to apply changes
+    sudo systemctl restart mysql
+    
+    # Configure firewall to allow MySQL traffic
+    sudo ufw allow mysql
+
+    # Log in to MySQL as root
+    mysql -u root <<MYSQL_SCRIPT
+    CREATE DATABASE IF NOT EXISTS nsnradius;
+    CREATE USER 'nsnradius'@'%' IDENTIFIED BY 'nsnRad123!';
+    GRANT ALL PRIVILEGES ON nsnradius.* TO 'nsnradius'@'%';
+    FLUSH PRIVILEGES;
+    MYSQL_SCRIPT
+
+    echo "MySQL database 'nsnradius' created and user 'nsnradius' granted access."
+
+    # Import schema from SQL file
+    mysql -u root -p nsnradius < nsnconfig/nsnradius_schema.sql
+    
+    echo "Schema imported into MySQL database 'nsnradius'."
+
+
+    
+
+    
+    
+
+    
+    
+
+    
+
     
     
     
