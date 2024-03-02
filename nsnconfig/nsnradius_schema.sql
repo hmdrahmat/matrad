@@ -18,6 +18,30 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Function structure for formatbytes
+-- ----------------------------
+DROP FUNCTION IF EXISTS `formatbytes`;
+delimiter ;;
+CREATE FUNCTION `formatbytes`(byte BIGINT)
+ RETURNS varchar(200) CHARSET utf8mb4
+  DETERMINISTIC
+BEGIN
+  DECLARE bytes VARCHAR(200);
+	CASE
+		WHEN (byte >= 1099511627776) THEN SET bytes = CONCAT(FORMAT((byte / 1099511627776), 2), 'TB');
+		WHEN (byte >= 1073741824) THEN SET bytes = CONCAT(FORMAT((byte / 1073741824), 2), 'GB');
+ 		WHEN (byte >= 1048576) THEN SET bytes = CONCAT(FORMAT((byte / 1048576), 2), 'MB');
+ 		WHEN (byte >= 1024) THEN SET bytes = CONCAT(FORMAT((byte / 1024), 2), 'KB');
+ 		WHEN (byte > 1) THEN SET bytes = CONCAT(FORMAT((byte), 2), 'B');
+		ELSE SET bytes = byte;
+	END CASE;
+	RETURN bytes;
+END
+;;
+delimiter ;
+
+
+-- ----------------------------
 -- Table structure for config
 -- ----------------------------
 DROP TABLE IF EXISTS `config`;
@@ -348,27 +372,5 @@ CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `v_hotspot_voucher` AS se
 DROP VIEW IF EXISTS `v_voucher_active`;
 CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `v_voucher_active` AS select `ra`.`radacctid` AS `id`,`ra`.`username` AS `USERNAME`,`rug`.`groupname` AS `PROFILE`,`ra`.`acctstarttime` AS `START_TIME`,time_format(timediff(now(),`ra`.`acctstarttime`),'%H:%i:%s') AS `UPTIME`,`ra`.`acctinputoctets` AS `UPLOAD`,`ra`.`acctoutputoctets` AS `DOWNLOAD`,`ra`.`nasipaddress` AS `ROUTER`,`ra`.`calledstationid` AS `SERVER`,`ra`.`framedipaddress` AS `IP_ADDRESS`,`ra`.`callingstationid` AS `MAC_ADDRESS` from (`radacct` `ra` left join `radusergroup` `rug` on((`ra`.`username` = `rug`.`username`))) where isnull(`ra`.`acctstoptime`);
 
--- ----------------------------
--- Function structure for formatbytes
--- ----------------------------
-DROP FUNCTION IF EXISTS `formatbytes`;
-delimiter ;;
-CREATE FUNCTION `formatbytes`(byte BIGINT)
- RETURNS varchar(200) CHARSET utf8mb4
-  DETERMINISTIC
-BEGIN
-  DECLARE bytes VARCHAR(200);
-	CASE
-		WHEN (byte >= 1099511627776) THEN SET bytes = CONCAT(FORMAT((byte / 1099511627776), 2), 'TB');
-		WHEN (byte >= 1073741824) THEN SET bytes = CONCAT(FORMAT((byte / 1073741824), 2), 'GB');
- 		WHEN (byte >= 1048576) THEN SET bytes = CONCAT(FORMAT((byte / 1048576), 2), 'MB');
- 		WHEN (byte >= 1024) THEN SET bytes = CONCAT(FORMAT((byte / 1024), 2), 'KB');
- 		WHEN (byte > 1) THEN SET bytes = CONCAT(FORMAT((byte), 2), 'B');
-		ELSE SET bytes = byte;
-	END CASE;
-	RETURN bytes;
-END
-;;
-delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
