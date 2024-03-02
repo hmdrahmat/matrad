@@ -12,6 +12,10 @@ Steps:
 3. `chmod +x matrad.sh` 
 4. `./matrad.sh`
 
+5.  `cd matrad`
+3. `chmod +x matraddbl.sh` 
+4. `./matraddbl.sh`
+
 VPN
 
 5. `chmod +x matovpn.sh` 
